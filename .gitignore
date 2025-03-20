@@ -1,0 +1,34 @@
+# macOS システムファイル
+.DS_Store
+Thumbs.db
+
+# Xcode関連（ビルドキャッシュや個人設定）
+*.xcuserstate
+*.xcworkspace
+*.xcuserdatad/
+DerivedData/
+Logs/
+index.lock
+
+# Swift Package Manager (SPM)
+.swiftpm/
+Package.resolved
+
+# CocoaPods（CocoaPodsを使うなら `Pods/` はGit管理しない）
+Pods/
+Podfile.lock
+
+# Carthage
+Carthage/
+
+# ビルド成果物（Git管理不要）
+build/
+*.ipa
+*.app
+*.dSYM.zip
+*.dSYM
+
+# 一時ファイル
+*.swp
+*.swo
+*.tmp

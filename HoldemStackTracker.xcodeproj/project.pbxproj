@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		16578EE52D8C3EB7008DD633 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 16578EE42D8C3EB7008DD633 /* .gitignore */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		164E683A2D87190700EB2353 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +31,7 @@
 		164E68292D87190600EB2353 /* HoldemStackTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HoldemStackTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		164E68392D87190700EB2353 /* HoldemStackTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HoldemStackTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		164E68432D87190700EB2353 /* HoldemStackTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HoldemStackTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		16578EE42D8C3EB7008DD633 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -75,6 +80,7 @@
 		164E68202D87190600EB2353 = {
 			isa = PBXGroup;
 			children = (
+				16578EE42D8C3EB7008DD633 /* .gitignore */,
 				164E682B2D87190600EB2353 /* HoldemStackTracker */,
 				164E683C2D87190700EB2353 /* HoldemStackTrackerTests */,
 				164E68462D87190700EB2353 /* HoldemStackTrackerUITests */,
@@ -212,6 +218,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16578EE52D8C3EB7008DD633 /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
