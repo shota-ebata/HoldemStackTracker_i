@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		16578EE52D8C3EB7008DD633 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 16578EE42D8C3EB7008DD633 /* .gitignore */; };
+		16D053202D9EC4F2006E4C56 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 16D0531F2D9EC4F2006E4C56 /* GoogleService-Info.plist */; };
+		16D053212D9EC4F2006E4C56 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 16D0531F2D9EC4F2006E4C56 /* GoogleService-Info.plist */; };
+		16D053222D9EC4F2006E4C56 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 16D0531F2D9EC4F2006E4C56 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +35,7 @@
 		164E68392D87190700EB2353 /* HoldemStackTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HoldemStackTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		164E68432D87190700EB2353 /* HoldemStackTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HoldemStackTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		16578EE42D8C3EB7008DD633 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		16D0531F2D9EC4F2006E4C56 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -85,6 +89,7 @@
 				164E683C2D87190700EB2353 /* HoldemStackTrackerTests */,
 				164E68462D87190700EB2353 /* HoldemStackTrackerUITests */,
 				164E682A2D87190600EB2353 /* Products */,
+				16D0531F2D9EC4F2006E4C56 /* GoogleService-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -218,6 +223,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16D053212D9EC4F2006E4C56 /* GoogleService-Info.plist in Resources */,
 				16578EE52D8C3EB7008DD633 /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -226,6 +232,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16D053202D9EC4F2006E4C56 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,6 +240,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16D053222D9EC4F2006E4C56 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
