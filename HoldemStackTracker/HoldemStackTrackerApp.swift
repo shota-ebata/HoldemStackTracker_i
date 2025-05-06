@@ -11,7 +11,7 @@ import SwiftUI
 struct HoldemStackTrackerApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainContentView()
         }
     }
 }
