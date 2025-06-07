@@ -6,7 +6,7 @@
 //
 
 import UIKit
-//import SwiftUI
+import SwiftUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -25,10 +25,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
         let window = UIWindow(windowScene: windowScene)
-//        let mainContentView = MainContentView()
-//        let vc = UIHostingController(rootView: mainContentView)
+        
         let vc = FirstViewController()
-
         let navVC = UINavigationController(rootViewController: vc)
 
         window.rootViewController = navVC

@@ -30,12 +30,12 @@ class FirstViewController: UIViewController {
 
     @objc private func didTapNext() {
         // 次の画面へ遷移する
-        let nextVC = NextViewController()
-        navigationController?.pushViewController(nextVC, animated: true)
+//        let nextVC = NextViewController()
+//        navigationController?.pushViewController(nextVC, animated: true)
         
-//        // SwiftUIの画面を表示する
-//        let swiftUIView = SecondSwiftUIView()
-//        let hostingController = UIHostingController(rootView: swiftUIView)
-//        navigationController?.pushViewController(hostingController, animated: true)
+        // SwiftUIの画面を表示する
+        let mainContentView = MainContentView()
+        let vc = UIHostingController(rootView: mainContentView)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
