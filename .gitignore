@@ -9,6 +9,7 @@ Thumbs.db
 DerivedData/
 Logs/
 index.lock
+*.xcschememanagement.plist
 
 # Swift Package Manager (SPM)
 .swiftpm/
