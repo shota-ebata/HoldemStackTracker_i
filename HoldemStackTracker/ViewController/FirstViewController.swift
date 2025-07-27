@@ -32,10 +32,9 @@ class FirstViewController: UIViewController {
         // 次の画面へ遷移する
 //        let nextVC = NextViewController()
 //        navigationController?.pushViewController(nextVC, animated: true)
-        
-        // SwiftUIの画面を表示する
-        let mainContentView = MainContentView()
-        let vc = UIHostingController(rootView: mainContentView)
+//        let mainContentView = MainContentView()
+//        let vc = UIHostingController(rootView: mainContentView)
+        let vc = MainViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
 }
