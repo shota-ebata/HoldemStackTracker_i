@@ -8,27 +8,29 @@
 import Foundation
 import SwiftUI
 
-struct JoinByIdSheet: View {
-    @State var inputText: String
+struct JoinByIdDialog: View {
+    @State var uiState: JoinByIdDialogUiState
     
     let onClickDone: () -> Void
 
     var body: some View {
         
-        ZStack {
+        ZStack() {
             Color.black.opacity(0.4)
                 .edgesIgnoringSafeArea(.all)
             
             VStack {
                 
-                TextField("文字入力", text: $inputText)
+                TextField("文字入力", text: $uiState.inputText)
                     .padding()
                     .background(Color.white)
                     .cornerRadius(8)
 
-                Button("完了") {
-                    onClickDone()
-                    // 入力処理
+                HStack() {
+                    Spacer()
+                    Button("完了") {
+                        onClickDone()
+                    }
                 }
             }
             .padding()
@@ -39,9 +41,17 @@ struct JoinByIdSheet: View {
     }
 }
 
+class JoinByIdDialogUiState: ObservableObject {
+    @Published var inputText: String = ""
+    
+    init(inputText: String = "") {
+        self.inputText = inputText
+    }
+}
+
 #Preview {
-    JoinByIdSheet(
-        inputText: "previewhoge",
+    JoinByIdDialog(
+        uiState: JoinByIdDialogUiState(inputText: "previewhoge"),
         onClickDone: {},
     )
 }

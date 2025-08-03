@@ -9,20 +9,35 @@ import SwiftUI
 
 struct MainContentView: View {
 
-    @StateObject var viewModel: MainContentViewModel
+    @StateObject var uiState: MainContentUiState
+    @StateObject var dialogUiState: MainContentDialogUiState
+    
+    let onClickSearchById: () -> Void
+    let onClickJoinByIdDialogDone: () -> Void
+    let onDissmissRequestJoinByIdDialog: () -> Void
+    
+    init(
+        uiState: MainContentUiState,
+        dialogUiState: MainContentDialogUiState,
+        onClickSearchById: @escaping () -> Void,
+        onClickJoinByIdDialogDone: @escaping () -> Void,
+        onDissmissRequestJoinByIdDialog: @escaping () -> Void,
+    ) {
+        self._uiState = StateObject(wrappedValue: uiState)
+        self._dialogUiState = StateObject(wrappedValue: dialogUiState)
+        self.onClickSearchById = onClickSearchById
+        self.onClickJoinByIdDialogDone = onClickJoinByIdDialogDone
+        self.onDissmissRequestJoinByIdDialog = onDissmissRequestJoinByIdDialog
+    }
 
     var body: some View {
-        let uiState: MainContentUiState = viewModel.uiState
-        let dialogUiState: MainContentDialogUiState = viewModel.dialogUiState
         ZStack {
             VStack(
                 spacing: 16,
             ) {
-
-                switch uiState {
-                case is Loading:
+                if uiState.shouldShowScreenLoading {
                     LoadingContent()
-                case is Empty:
+                } else {
                     VStack(
                         alignment: .leading
                     ) {
@@ -57,17 +72,13 @@ struct MainContentView: View {
                                 imageResKey: "edit",
                                 labelKey: "button_table_id_search",
                                 onClick: {
-                                    viewModel.onClickSearchById()
+                                    onClickSearchById()
                                 }
                             )
                         }
                     }
                     .frame(maxWidth: .infinity)
                     .padding(.horizontal, 8)
-                    // State確認用Text
-                    Text((uiState as! Empty).title)
-                default:
-                    Text("-")
                 }
             }
             .frame(
@@ -79,10 +90,11 @@ struct MainContentView: View {
             //        .navigationBarBackButtonHidden(true)
             //        .navigationBarHidden(true)
             
-            
-            if dialogUiState.shouldShow {
-                JoinByIdSheet(
-                    inputText: "", onClickDone: {}
+            // Dialog
+            if let joinByIdDialogUiState = dialogUiState.joinByIdDialogUiState {
+                JoinByIdDialog(
+                    uiState: joinByIdDialogUiState,
+                    onClickDone: onClickJoinByIdDialogDone
                 )
             }
         }
@@ -90,19 +102,25 @@ struct MainContentView: View {
 
 }
 
-protocol MainContentUiState {}
-
-final class Loading: MainContentUiState {
-    static let object = Loading()
-    private init() {}
-}
-
-final class Empty: MainContentUiState {
-    var title: String = "キマシタワー"
+final class MainContentUiState: ObservableObject {
+    @Published var shouldShowScreenLoading: Bool = true
+    @Published var isEmpty: Bool = false
+    
+    init(
+        shouldShowScreenLoading: Bool = true,
+        isEmpty: Bool = false,
+    ) {
+        self.shouldShowScreenLoading = shouldShowScreenLoading
+        self.isEmpty = isEmpty
+    }
 }
 
 #Preview {
     MainContentView(
-        viewModel: MainContentViewModel()
+        uiState: MainContentUiState(shouldShowScreenLoading: false),
+        dialogUiState: MainContentDialogUiState(),
+        onClickSearchById: {},
+        onClickJoinByIdDialogDone: {},
+        onDissmissRequestJoinByIdDialog: {},
     )
 }

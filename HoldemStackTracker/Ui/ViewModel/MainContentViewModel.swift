@@ -9,11 +9,10 @@ import Foundation
 import Combine
 
 
-class MainContentViewModel : ObservableObject {
+class MainContentViewModel {
     
-    @Published var uiState: MainContentUiState = Loading.object
-    
-    @Published var dialogUiState: MainContentDialogUiState = MainContentDialogUiState()
+    let uiState: MainContentUiState = MainContentUiState()
+    let dialogUiState: MainContentDialogUiState = MainContentDialogUiState()
     
     let navigateEvent = PassthroughSubject<MainContentNavigateEvent, Never>()
     
@@ -25,18 +24,15 @@ class MainContentViewModel : ObservableObject {
         .map { $0 + $1 }
         .eraseToAnyPublisher()
     
-    // Combineのキャンセラブルを保持するためのセット
     private var cancellables = Set<AnyCancellable>()
     
     init() {
+        uiState.shouldShowScreenLoading = false
+        
         c.sink { value in
-            let emptyUiState = Empty()
-            emptyUiState.title = "合計: \(value)"
-            self.uiState = emptyUiState
+            print("合計: \(value)")
         }.store(in: &cancellables)
-    }
-    
-    func testCombine() {
+        
         callA = 30
     }
     
@@ -90,17 +86,22 @@ class MainContentViewModel : ObservableObject {
     }
     
     func onClickSearchById() {
-        print("onClick Search table ID")
-        dialogUiState.shouldShow = true
-        dialogUiState = dialogUiState // 更新を通知するために再代入
+        dialogUiState.joinByIdDialogUiState = JoinByIdDialogUiState()
     }
     
+    func onDissmissRequestJoinByIdDialog() {
+        dialogUiState.joinByIdDialogUiState = nil
+    }
     
+    func onClickJoinByIdDialogDone() {
+        let joinByIdDialogInputText = dialogUiState.joinByIdDialogUiState?.inputText
+        // TODO: id使って検索してねー
+        onDissmissRequestJoinByIdDialog()
+    }
 }
 
-
-class MainContentDialogUiState {
-    var shouldShow: Bool = false
+class MainContentDialogUiState : ObservableObject {
+    @Published var joinByIdDialogUiState: JoinByIdDialogUiState? = nil
 }
 
 enum MainContentNavigateEvent {

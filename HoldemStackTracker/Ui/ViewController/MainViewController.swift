@@ -15,7 +15,13 @@ class MainViewController: UIHostingController<MainContentView> {
     private var cancellables = Set<AnyCancellable>()
 
     init() {
-        let contentView = MainContentView(viewModel: self.viewModel)
+        let contentView = MainContentView(
+            uiState: viewModel.uiState,
+            dialogUiState: viewModel.dialogUiState,
+            onClickSearchById: viewModel.onClickSearchById,
+            onClickJoinByIdDialogDone: viewModel.onClickJoinByIdDialogDone,
+            onDissmissRequestJoinByIdDialog: viewModel.onDissmissRequestJoinByIdDialog
+        )
         super.init(rootView: contentView)
     }
 
@@ -25,27 +31,13 @@ class MainViewController: UIHostingController<MainContentView> {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Conbine監視の練習
-        viewModel.$uiState
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] uiState in
-                let hoge = self // weak self の警告うざいので練習だし
-                
-                switch uiState {
-                case is Loading:
-                    print("Loading state")
-                case is Empty:
-                    print("Empty state")
-                default:
-                    break
-                }
-            }
-            .store(in: &cancellables)
-
-        viewModel.testCombine()
-
+        observeNavigateEvent()
         //        viewModel.asyncActor()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //        navigationController?.setToolbarHidden(true, animated: false) // ツールバーを非表示にする
     }
     
     private func observeNavigateEvent() {
@@ -56,10 +48,4 @@ class MainViewController: UIHostingController<MainContentView> {
             }
             .store(in: &cancellables)
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        //        navigationController?.setToolbarHidden(true, animated: false) // ツールバーを非表示にする
-    }
-
 }
