@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "-" : {
+
+    },
     "button_create_table" : {
       "extractionState" : "manual",
       "localizations" : {

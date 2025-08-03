@@ -76,6 +76,20 @@ class MainContentViewModel : ObservableObject {
         }
         
     }
+    
+    func onClickCreateTableButton() {
+        
+    }
+    
+    func onClickQrButtonButton() {
+        
+    }
+    
+    func onClickSearchById() {
+        
+    }
+    
+    
 }
 
 actor ABankClass {
