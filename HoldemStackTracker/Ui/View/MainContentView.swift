@@ -29,6 +29,8 @@ struct MainContentView: View {
         self.onClickJoinByIdDialogDone = onClickJoinByIdDialogDone
         self.onDissmissRequestJoinByIdDialog = onDissmissRequestJoinByIdDialog
     }
+    
+    @State private var isPresented = false
 
     var body: some View {
         ZStack {
@@ -66,6 +68,7 @@ struct MainContentView: View {
                                 labelKey: "button_qr_scanner",
                                 onClick: {
                                     print("onClick QR scanner")
+                                    isPresented = true
                                 }
                             )
                             ElevatedCardWithIconAndNameView(
@@ -98,6 +101,14 @@ struct MainContentView: View {
                 )
             }
         }
+        .sheet(isPresented: $isPresented) {
+            Button {
+                isPresented = false
+            } label: {
+                Text("完了")
+            }
+        }
+        .presentationDetents([.fraction(0.3), .medium])
     }
 
 }

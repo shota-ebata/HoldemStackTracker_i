@@ -20,7 +20,7 @@ class MainViewController: UIHostingController<MainContentView> {
             dialogUiState: viewModel.dialogUiState,
             onClickSearchById: viewModel.onClickSearchById,
             onClickJoinByIdDialogDone: viewModel.onClickJoinByIdDialogDone,
-            onDissmissRequestJoinByIdDialog: viewModel.onDissmissRequestJoinByIdDialog
+            onDissmissRequestJoinByIdDialog: viewModel.onDissmissRequestJoinByIdDialog,
         )
         super.init(rootView: contentView)
     }
