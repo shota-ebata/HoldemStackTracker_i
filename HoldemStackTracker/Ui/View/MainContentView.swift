@@ -13,69 +13,79 @@ struct MainContentView: View {
 
     var body: some View {
         let uiState: MainContentUiState = viewModel.uiState
-        VStack(
-            spacing: 16,
-        ) {
+        let dialogUiState: MainContentDialogUiState = viewModel.dialogUiState
+        ZStack {
+            VStack(
+                spacing: 16,
+            ) {
 
-            switch uiState {
-            case is Loading:
-                LoadingContent()
-            case is Empty:
-                VStack(
-                    alignment: .leading
-                ) {
-                    Text("button_create_table")
-                        .padding(.bottom, 8)
-                        .font(.title)
-                    ElevatedCardWithIconAndNameView(
-                        imageResKey: "home",
-                        labelKey: "label_create_table",
-                        onClick: {
-                            print("onClick home")
-                        }
-                    )
-                }
-                .padding(.horizontal, 8)
-
-                VStack(
-                    alignment: .leading
-                ) {
-                    Text("label_join_table")
-                        .padding(.bottom, 8)
-                        .font(.title)
-                    HStack(spacing: 8) {
+                switch uiState {
+                case is Loading:
+                    LoadingContent()
+                case is Empty:
+                    VStack(
+                        alignment: .leading
+                    ) {
+                        Text("button_create_table")
+                            .padding(.bottom, 8)
+                            .font(.title)
                         ElevatedCardWithIconAndNameView(
-                            imageResKey: "qr_code_scanner",
-                            labelKey: "button_qr_scanner",
+                            imageResKey: "home",
+                            labelKey: "label_create_table",
                             onClick: {
-                                print("onClick QR scanner")
-                            }
-                        )
-                        ElevatedCardWithIconAndNameView(
-                            imageResKey: "edit",
-                            labelKey: "button_table_id_search",
-                            onClick: {
-                                print("onClick Search table ID")
+                                print("onClick home")
                             }
                         )
                     }
+                    .padding(.horizontal, 8)
+
+                    VStack(
+                        alignment: .leading
+                    ) {
+                        Text("label_join_table")
+                            .padding(.bottom, 8)
+                            .font(.title)
+                        HStack(spacing: 8) {
+                            ElevatedCardWithIconAndNameView(
+                                imageResKey: "qr_code_scanner",
+                                labelKey: "button_qr_scanner",
+                                onClick: {
+                                    print("onClick QR scanner")
+                                }
+                            )
+                            ElevatedCardWithIconAndNameView(
+                                imageResKey: "edit",
+                                labelKey: "button_table_id_search",
+                                onClick: {
+                                    viewModel.onClickSearchById()
+                                }
+                            )
+                        }
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.horizontal, 8)
+                    // State確認用Text
+                    Text((uiState as! Empty).title)
+                default:
+                    Text("-")
                 }
-                .frame(maxWidth: .infinity)
-                .padding(.horizontal, 8)
-                // State確認用Text
-                Text((uiState as! Empty).title)
-            default:
-                Text("-")
+            }
+            .frame(
+                maxWidth: .infinity,
+                maxHeight: .infinity,
+                alignment: .top
+            )
+            .padding(.horizontal, 8)
+            //        .navigationBarBackButtonHidden(true)
+            //        .navigationBarHidden(true)
+            
+            
+            if dialogUiState.shouldShow {
+                JoinByIdSheet(
+                    inputText: "", onClickDone: {}
+                )
             }
         }
-        .frame(
-            maxWidth: .infinity,
-            maxHeight: .infinity,
-            alignment: .top
-        )
-        .padding(.horizontal, 8)
-        //        .navigationBarBackButtonHidden(true)
-        //        .navigationBarHidden(true)
     }
 
 }

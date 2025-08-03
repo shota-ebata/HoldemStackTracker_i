@@ -13,6 +13,10 @@ class MainContentViewModel : ObservableObject {
     
     @Published var uiState: MainContentUiState = Loading.object
     
+    @Published var dialogUiState: MainContentDialogUiState = MainContentDialogUiState()
+    
+    let navigateEvent = PassthroughSubject<MainContentNavigateEvent, Never>()
+    
     
     @Published var callA: Int = 10
     @Published var callB: Int = 20
@@ -86,10 +90,24 @@ class MainContentViewModel : ObservableObject {
     }
     
     func onClickSearchById() {
-        
+        print("onClick Search table ID")
+        dialogUiState.shouldShow = true
+        dialogUiState = dialogUiState // 更新を通知するために再代入
     }
     
     
+}
+
+
+class MainContentDialogUiState {
+    var shouldShow: Bool = false
+}
+
+enum MainContentNavigateEvent {
+    case TableCreator
+    case TablePrepare
+    case Game
+    case CloseApp
 }
 
 actor ABankClass {

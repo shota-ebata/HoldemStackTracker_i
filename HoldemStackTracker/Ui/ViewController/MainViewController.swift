@@ -47,6 +47,15 @@ class MainViewController: UIHostingController<MainContentView> {
 
         //        viewModel.asyncActor()
     }
+    
+    private func observeNavigateEvent() {
+        viewModel.navigateEvent
+            .receive(on: DispatchQueue.main)
+            .sink{ [weak self] event in
+                print("Navigate event received: \(event)")
+            }
+            .store(in: &cancellables)
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
