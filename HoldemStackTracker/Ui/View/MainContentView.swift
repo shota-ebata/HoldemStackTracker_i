@@ -11,11 +11,11 @@ struct MainContentView: View {
 
     @StateObject var uiState: MainContentUiState
     @StateObject var dialogUiState: MainContentDialogUiState
-    
+
     let onClickSearchById: () -> Void
     let onClickJoinByIdDialogDone: () -> Void
     let onDissmissRequestJoinByIdDialog: () -> Void
-    
+
     init(
         uiState: MainContentUiState,
         dialogUiState: MainContentDialogUiState,
@@ -29,10 +29,17 @@ struct MainContentView: View {
         self.onClickJoinByIdDialogDone = onClickJoinByIdDialogDone
         self.onDissmissRequestJoinByIdDialog = onDissmissRequestJoinByIdDialog
     }
-    
-    @State private var isPresented = false
 
     var body: some View {
+        // FIXME: Binding<X> → Binding<Y>の変換、もっとよい方法が無いか？
+        let shouldShowJoinByIdSheet: Binding<Bool> = Binding(
+            get: { dialogUiState.joinByIdSheetUiState != nil },
+            set: { newValue in
+                if !newValue {
+                    onDissmissRequestJoinByIdDialog()
+                }
+            }
+        )
         ZStack {
             VStack(
                 spacing: 16,
@@ -68,7 +75,7 @@ struct MainContentView: View {
                                 labelKey: "button_qr_scanner",
                                 onClick: {
                                     print("onClick QR scanner")
-                                    isPresented = true
+                                    onClickSearchById()
                                 }
                             )
                             ElevatedCardWithIconAndNameView(
@@ -92,23 +99,29 @@ struct MainContentView: View {
             .padding(.horizontal, 8)
             //        .navigationBarBackButtonHidden(true)
             //        .navigationBarHidden(true)
-            
-            // Dialog
-            if let joinByIdDialogUiState = dialogUiState.joinByIdDialogUiState {
-                JoinByIdDialog(
-                    uiState: joinByIdDialogUiState,
-                    onClickDone: onClickJoinByIdDialogDone
-                )
+
+        }
+        .sheet(
+            isPresented: shouldShowJoinByIdSheet
+        ) {
+            if let joinByIdSheetUiState = dialogUiState.joinByIdSheetUiState {
+                VStack {
+                    JoinByIdContent(
+                        uiState: joinByIdSheetUiState,
+                        onClickDone: {
+                            onClickJoinByIdDialogDone()
+                        },
+                        onClickCancel: {
+                            onDissmissRequestJoinByIdDialog()
+                        }
+                    )
+                }
+                .padding(.horizontal, 16)
+                .presentationDetents([.height(150)])
+                .presentationDragIndicator(.visible)
             }
         }
-        .sheet(isPresented: $isPresented) {
-            Button {
-                isPresented = false
-            } label: {
-                Text("完了")
-            }
-        }
-        .presentationDetents([.fraction(0.3), .medium])
+
     }
 
 }
@@ -116,7 +129,7 @@ struct MainContentView: View {
 final class MainContentUiState: ObservableObject {
     @Published var shouldShowScreenLoading: Bool = true
     @Published var isEmpty: Bool = false
-    
+
     init(
         shouldShowScreenLoading: Bool = true,
         isEmpty: Bool = false,

@@ -86,22 +86,25 @@ class MainContentViewModel {
     }
     
     func onClickSearchById() {
-        dialogUiState.joinByIdDialogUiState = JoinByIdDialogUiState()
+        dialogUiState.joinByIdSheetUiState = JoinByIdContentUiState()
     }
     
     func onDissmissRequestJoinByIdDialog() {
-        dialogUiState.joinByIdDialogUiState = nil
+        dialogUiState.joinByIdSheetUiState = nil
     }
     
     func onClickJoinByIdDialogDone() {
-        let joinByIdDialogInputText = dialogUiState.joinByIdDialogUiState?.inputText
+        guard let joinByIdDialogInputText: String = dialogUiState.joinByIdSheetUiState?.inputText else {
+            return
+        }
         // TODO: id使って検索してねー
+        print(joinByIdDialogInputText)
         onDissmissRequestJoinByIdDialog()
     }
 }
 
 class MainContentDialogUiState : ObservableObject {
-    @Published var joinByIdDialogUiState: JoinByIdDialogUiState? = nil
+    @Published var joinByIdSheetUiState: JoinByIdContentUiState? = nil
 }
 
 enum MainContentNavigateEvent {
