@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MainContentView: View {
+struct MainScreen: View {
 
     @StateObject var uiState: MainContentUiState
     @StateObject var dialogUiState: MainContentDialogUiState
@@ -140,7 +140,7 @@ final class MainContentUiState: ObservableObject {
 }
 
 #Preview {
-    MainContentView(
+    MainScreen(
         uiState: MainContentUiState(shouldShowScreenLoading: false),
         dialogUiState: MainContentDialogUiState(),
         onClickSearchById: {},

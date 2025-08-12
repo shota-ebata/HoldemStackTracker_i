@@ -8,14 +8,14 @@
 import Combine
 import SwiftUI
 
-class MainViewController: UIHostingController<MainContentView> {
+class MainViewController: UIHostingController<MainScreen> {
 
     private let viewModel = MainContentViewModel()
 
     private var cancellables = Set<AnyCancellable>()
 
     init() {
-        let contentView = MainContentView(
+        let contentView = MainScreen(
             uiState: viewModel.uiState,
             dialogUiState: viewModel.dialogUiState,
             onClickSearchById: viewModel.onClickSearchById,
