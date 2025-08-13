@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MainScreen: View {
 
-    @StateObject var uiState: MainContentUiState
+    @StateObject var uiState: MainScreenUiState
     @StateObject var dialogUiState: MainContentDialogUiState
 
     let onClickTableCreator: () -> Void
@@ -19,7 +19,7 @@ struct MainScreen: View {
     let onDissmissRequestJoinByIdDialog: () -> Void
 
     init(
-        uiState: MainContentUiState,
+        uiState: MainScreenUiState,
         dialogUiState: MainContentDialogUiState,
         onClickTableCreator: @escaping () -> Void,
         onClickJoinTableByQr: @escaping () -> Void,
@@ -46,30 +46,35 @@ struct MainScreen: View {
                 }
             }
         )
-        ZStack {
-            VStack(
-                spacing: 16,
-            ) {
-                if uiState.shouldShowScreenLoading {
-                    LoadingContent()
-                } else {
+        VStack(
+            spacing: 16,
+        ) {
+            if uiState.shouldShowScreenLoading {
+                LoadingContent()
+            } else {
+                if uiState.isEmpty {
                     TableMainConsoleContent(
-                        onClickTableCreator: {},
+                        onClickTableCreator: onClickTableCreator,
                         onClickJoinTableByQr: onClickJoinTableByQr,
                         onClickJoinTableById: onClickJoinTableById,
                     )
+                    .padding(.horizontal, 8)
+                } else {
+                    List {
+                        ForEach(uiState.items) { uiState in
+                            TableSummaryCardRow(uiState: uiState)
+                        }
+                        .listRowSeparator(.hidden)
+                    }
+                    .listStyle(.plain)
                 }
             }
-            .frame(
-                maxWidth: .infinity,
-                maxHeight: .infinity,
-                alignment: .top
-            )
-            .padding(.horizontal, 8)
-            //        .navigationBarBackButtonHidden(true)
-            //        .navigationBarHidden(true)
-
         }
+        .frame(
+            maxWidth: .infinity,
+            maxHeight: .infinity,
+            alignment: .top
+        )
         .sheet(
             isPresented: shouldShowJoinByIdSheet
         ) {
@@ -90,14 +95,75 @@ struct MainScreen: View {
                 .presentationDragIndicator(.visible)
             }
         }
-
     }
-
 }
 
-final class MainContentUiState: ObservableObject {
-    @Published var shouldShowScreenLoading: Bool = true
-    @Published var isEmpty: Bool = false
+final class MainScreenUiState: ObservableObject {
+    @Published var shouldShowScreenLoading: Bool
+    @Published var isEmpty: Bool
+    @Published var items: [TableSummaryCardRowUiState] = [
+        TableSummaryCardRowUiState(
+            tableId: TableId(value: "test-table-id"),
+            gameTypeText: "Ring Game",
+            blindText: "100/200",
+            hostName: "HostPlayer",
+            isJoined: true,
+            playerSize: "5/10",
+            updateTime: "2024/12/08 22:54:01",
+            createTime: "2024/12/08 22:54:01",
+        ),
+        TableSummaryCardRowUiState(
+            tableId: TableId(value: "test-table-id2"),
+            gameTypeText: "Ring Game",
+            blindText: "100/200",
+            hostName: "HostPlayer",
+            isJoined: false,
+            playerSize: "5/10",
+            updateTime: "2024/12/08 22:54:01",
+            createTime: "2024/12/08 22:54:01",
+        ),
+        TableSummaryCardRowUiState(
+            tableId: TableId(value: "test-table-id3"),
+            gameTypeText: "Ring Game",
+            blindText: "100/200",
+            hostName: "HostPlayer",
+            isJoined: false,
+            playerSize: "5/10",
+            updateTime: "2024/12/08 22:54:01",
+            createTime: "2024/12/08 22:54:01",
+        ),
+        TableSummaryCardRowUiState(
+            tableId: TableId(value: "test-table-id4"),
+            gameTypeText: "Ring Game",
+            blindText: "100/200",
+            hostName: "HostPlayer",
+            isJoined: false,
+            playerSize: "5/10",
+            updateTime: "2024/12/08 22:54:01",
+            createTime: "2024/12/08 22:54:01",
+        ),
+        TableSummaryCardRowUiState(
+            tableId: TableId(value: "test-table-id5"),
+            gameTypeText: "Ring Game",
+            blindText: "100/200",
+            hostName: "HostPlayer",
+            isJoined: false,
+            playerSize: "5/10",
+            updateTime: "2024/12/08 22:54:01",
+            createTime: "2024/12/08 22:54:01",
+        ),
+        TableSummaryCardRowUiState(
+            tableId: TableId(value: "test-table-id6"),
+            gameTypeText: "Ring Game",
+            blindText: "100/200",
+            hostName: "HostPlayer",
+            isJoined: false,
+            playerSize: "5/10",
+            updateTime: "2024/12/08 22:54:01",
+            createTime: "2024/12/08 22:54:01",
+        ),
+
+    ]
 
     init(
         shouldShowScreenLoading: Bool = true,
@@ -110,7 +176,7 @@ final class MainContentUiState: ObservableObject {
 
 #Preview {
     MainScreen(
-        uiState: MainContentUiState(shouldShowScreenLoading: false),
+        uiState: MainScreenUiState(shouldShowScreenLoading: false),
         dialogUiState: MainContentDialogUiState(),
         onClickTableCreator: {},
         onClickJoinTableByQr: {},

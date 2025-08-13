@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "blind" : {
+      "extractionState" : "manual"
+    },
     "button_cancel" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -86,6 +89,23 @@
         }
       }
     },
+    "label_blind" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "BLIND"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "BLIND"
+          }
+        }
+      }
+    },
     "label_create_table" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -99,6 +119,23 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "テーブル作成"
+          }
+        }
+      }
+    },
+    "label_host" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Host："
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Host："
           }
         }
       }
@@ -120,6 +157,23 @@
         }
       }
     },
+    "label_joined" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Joined"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Joined"
+          }
+        }
+      }
+    },
     "label_table_id" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -133,6 +187,23 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "テーブルID"
+          }
+        }
+      }
+    },
+    "label_updated" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Updated"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Updated"
           }
         }
       }

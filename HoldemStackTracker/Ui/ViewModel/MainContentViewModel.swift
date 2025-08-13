@@ -11,7 +11,7 @@ import Combine
 
 class MainContentViewModel {
     
-    let uiState: MainContentUiState = MainContentUiState()
+    let uiState: MainScreenUiState = MainScreenUiState()
     let dialogUiState: MainContentDialogUiState = MainContentDialogUiState()
     
     let navigateEvent = PassthroughSubject<MainContentNavigateEvent, Never>()
