@@ -77,15 +77,15 @@ class MainContentViewModel {
         
     }
     
-    func onClickCreateTableButton() {
+    func onClickTableCreator() {
         
     }
     
-    func onClickQrButtonButton() {
+    func onClickJoinTableByQr() {
         
     }
     
-    func onClickSearchById() {
+    func onClickJoinTableById() {
         dialogUiState.joinByIdSheetUiState = JoinByIdContentUiState()
     }
     

@@ -12,20 +12,26 @@ struct MainScreen: View {
     @StateObject var uiState: MainContentUiState
     @StateObject var dialogUiState: MainContentDialogUiState
 
-    let onClickSearchById: () -> Void
+    let onClickTableCreator: () -> Void
+    let onClickJoinTableByQr: () -> Void
+    let onClickJoinTableById: () -> Void
     let onClickJoinByIdDialogDone: () -> Void
     let onDissmissRequestJoinByIdDialog: () -> Void
 
     init(
         uiState: MainContentUiState,
         dialogUiState: MainContentDialogUiState,
-        onClickSearchById: @escaping () -> Void,
+        onClickTableCreator: @escaping () -> Void,
+        onClickJoinTableByQr: @escaping () -> Void,
+        onClickJoinTableById: @escaping () -> Void,
         onClickJoinByIdDialogDone: @escaping () -> Void,
         onDissmissRequestJoinByIdDialog: @escaping () -> Void,
     ) {
         self._uiState = StateObject(wrappedValue: uiState)
         self._dialogUiState = StateObject(wrappedValue: dialogUiState)
-        self.onClickSearchById = onClickSearchById
+        self.onClickTableCreator = onClickTableCreator
+        self.onClickJoinTableByQr = onClickJoinTableByQr
+        self.onClickJoinTableById = onClickJoinTableById
         self.onClickJoinByIdDialogDone = onClickJoinByIdDialogDone
         self.onDissmissRequestJoinByIdDialog = onDissmissRequestJoinByIdDialog
     }
@@ -47,48 +53,11 @@ struct MainScreen: View {
                 if uiState.shouldShowScreenLoading {
                     LoadingContent()
                 } else {
-                    VStack(
-                        alignment: .leading
-                    ) {
-                        Text("button_create_table")
-                            .padding(.bottom, 8)
-                            .font(.title)
-                        ElevatedCardWithIconAndNameView(
-                            imageResKey: "home",
-                            labelKey: "label_create_table",
-                            onClick: {
-                                print("onClick home")
-                            }
-                        )
-                    }
-                    .padding(.horizontal, 8)
-
-                    VStack(
-                        alignment: .leading
-                    ) {
-                        Text("label_join_table")
-                            .padding(.bottom, 8)
-                            .font(.title)
-                        HStack(spacing: 8) {
-                            ElevatedCardWithIconAndNameView(
-                                imageResKey: "qr_code_scanner",
-                                labelKey: "button_qr_scanner",
-                                onClick: {
-                                    print("onClick QR scanner")
-                                    onClickSearchById()
-                                }
-                            )
-                            ElevatedCardWithIconAndNameView(
-                                imageResKey: "edit",
-                                labelKey: "button_table_id_search",
-                                onClick: {
-                                    onClickSearchById()
-                                }
-                            )
-                        }
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding(.horizontal, 8)
+                    TableMainConsoleContent(
+                        onClickTableCreator: {},
+                        onClickJoinTableByQr: onClickJoinTableByQr,
+                        onClickJoinTableById: onClickJoinTableById,
+                    )
                 }
             }
             .frame(
@@ -143,7 +112,9 @@ final class MainContentUiState: ObservableObject {
     MainScreen(
         uiState: MainContentUiState(shouldShowScreenLoading: false),
         dialogUiState: MainContentDialogUiState(),
-        onClickSearchById: {},
+        onClickTableCreator: {},
+        onClickJoinTableByQr: {},
+        onClickJoinTableById: {},
         onClickJoinByIdDialogDone: {},
         onDissmissRequestJoinByIdDialog: {},
     )

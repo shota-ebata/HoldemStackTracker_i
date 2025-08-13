@@ -18,7 +18,9 @@ class MainViewController: UIHostingController<MainScreen> {
         let contentView = MainScreen(
             uiState: viewModel.uiState,
             dialogUiState: viewModel.dialogUiState,
-            onClickSearchById: viewModel.onClickSearchById,
+            onClickTableCreator: viewModel.onClickTableCreator,
+            onClickJoinTableByQr: viewModel.onClickJoinTableByQr,
+            onClickJoinTableById: viewModel.onClickJoinTableById,
             onClickJoinByIdDialogDone: viewModel.onClickJoinByIdDialogDone,
             onDissmissRequestJoinByIdDialog: viewModel.onDissmissRequestJoinByIdDialog,
         )
