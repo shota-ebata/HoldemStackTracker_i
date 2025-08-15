@@ -77,6 +77,10 @@ class MainContentViewModel {
         
     }
     
+    func onClickAdd() {
+        // TODO: shouldShowMainConsoleDialogをtrueにする
+    }
+    
     func onClickTableCreator() {
         
     }

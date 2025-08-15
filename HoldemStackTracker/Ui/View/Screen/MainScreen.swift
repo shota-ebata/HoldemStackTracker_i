@@ -70,6 +70,16 @@ struct MainScreen: View {
                 }
             }
         }
+        .navigationTitle("a")
+        .toolbar {
+            if !uiState.isEmpty {
+                Button {
+                    print("on click plus button")
+                } label: {
+                    Image(systemName: "plus")
+                }
+            }
+        }
         .frame(
             maxWidth: .infinity,
             maxHeight: .infinity,
