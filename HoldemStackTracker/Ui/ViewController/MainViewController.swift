@@ -10,7 +10,7 @@ import SwiftUI
 
 final class MainViewController: UIHostingController<MainScreen> {
 
-    private let viewModel = MainContentViewModel()
+    private let viewModel = MainViewModel()
 
     private var cancellables = Set<AnyCancellable>()
 
