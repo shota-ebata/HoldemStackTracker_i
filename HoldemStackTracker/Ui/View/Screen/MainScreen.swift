@@ -15,6 +15,7 @@ struct MainScreen: View {
     let onClickTableCreator: () -> Void
     let onClickJoinTableByQr: () -> Void
     let onClickJoinTableById: () -> Void
+    let onClickJoinedCard: () -> Void
     let onClickJoinByIdDialogDone: () -> Void
     let onDissmissRequestJoinByIdDialog: () -> Void
 
@@ -24,6 +25,7 @@ struct MainScreen: View {
         onClickTableCreator: @escaping () -> Void,
         onClickJoinTableByQr: @escaping () -> Void,
         onClickJoinTableById: @escaping () -> Void,
+        onClickJoinedCard: @escaping () -> Void,
         onClickJoinByIdDialogDone: @escaping () -> Void,
         onDissmissRequestJoinByIdDialog: @escaping () -> Void,
     ) {
@@ -32,6 +34,7 @@ struct MainScreen: View {
         self.onClickTableCreator = onClickTableCreator
         self.onClickJoinTableByQr = onClickJoinTableByQr
         self.onClickJoinTableById = onClickJoinTableById
+        self.onClickJoinedCard = onClickJoinedCard
         self.onClickJoinByIdDialogDone = onClickJoinByIdDialogDone
         self.onDissmissRequestJoinByIdDialog = onDissmissRequestJoinByIdDialog
     }
@@ -71,7 +74,8 @@ struct MainScreen: View {
                     .padding(.horizontal, 16)
                     .padding(.top, 16)
                     JoinedTableCardView(
-                        uiState: uiState.tableSummaryCardRowUiState!
+                        uiState: uiState.tableSummaryCardRowUiState!,
+                        onClick: onClickJoinedCard
                     )
                     .padding(.horizontal, 16)
                 }
@@ -135,6 +139,7 @@ final class MainScreenUiState: ObservableObject {
         onClickTableCreator: {},
         onClickJoinTableByQr: {},
         onClickJoinTableById: {},
+        onClickJoinedCard: {},
         onClickJoinByIdDialogDone: {},
         onDissmissRequestJoinByIdDialog: {},
     )

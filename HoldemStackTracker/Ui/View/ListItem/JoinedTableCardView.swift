@@ -9,9 +9,15 @@ import SwiftUI
 
 struct JoinedTableCardView: View {
     @StateObject var uiState: JoinedTableCardViewUiState
+    
+    let onClick: () -> Void
 
-    init(uiState: JoinedTableCardViewUiState) {
+    init(
+        uiState: JoinedTableCardViewUiState,
+        onClick: @escaping () -> Void = {},
+    ) {
         self._uiState = StateObject(wrappedValue: uiState)
+        self.onClick = onClick
     }
 
     var body: some View {
@@ -102,6 +108,9 @@ struct JoinedTableCardView: View {
             color: Color.gray.opacity(0.2),
             radius: 7
         )
+        .onTapGesture {
+            onClick()
+        }
     }
 }
 
@@ -145,6 +154,7 @@ class JoinedTableCardViewUiState: ObservableObject, Identifiable {
             playerSize: "5/10",
             updateTime: "2024/12/08 22:54:01",
             createTime: "2024/12/08 22:54:01",
-        )
+        ),
+        onClick: {},
     )
 }

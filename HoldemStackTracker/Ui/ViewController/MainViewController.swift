@@ -21,6 +21,7 @@ final class MainViewController: UIHostingController<MainScreen> {
             onClickTableCreator: viewModel.onClickTableCreator,
             onClickJoinTableByQr: viewModel.onClickJoinTableByQr,
             onClickJoinTableById: viewModel.onClickJoinTableById,
+            onClickJoinedCard: viewModel.onClickJoinedCard,
             onClickJoinByIdDialogDone: viewModel.onClickJoinByIdDialogDone,
             onDissmissRequestJoinByIdDialog: viewModel.onDissmissRequestJoinByIdDialog,
         )

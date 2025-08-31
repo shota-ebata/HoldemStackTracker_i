@@ -60,6 +60,10 @@ final class MainContentViewModel {
         dialogUiState.joinByIdSheetUiState = JoinByIdContentUiState()
     }
     
+    func onClickJoinedCard() {
+        print("onClickJoinedTable")
+    }
+    
     func onDissmissRequestJoinByIdDialog() {
         dialogUiState.joinByIdSheetUiState = nil
     }
