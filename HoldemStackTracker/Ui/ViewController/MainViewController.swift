@@ -8,7 +8,7 @@
 import Combine
 import SwiftUI
 
-class MainViewController: UIHostingController<MainScreen> {
+final class MainViewController: UIHostingController<MainScreen> {
 
     private let viewModel = MainContentViewModel()
 

@@ -108,6 +108,7 @@ struct MainScreen: View {
     }
 }
 
+@MainActor
 final class MainScreenUiState: ObservableObject {
     @Published var shouldShowScreenLoading: Bool
     @Published var isEmpty: Bool
