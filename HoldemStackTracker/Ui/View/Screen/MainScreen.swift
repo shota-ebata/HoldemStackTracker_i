@@ -52,34 +52,33 @@ struct MainScreen: View {
             if uiState.shouldShowScreenLoading {
                 LoadingContent()
             } else {
-                if uiState.isEmpty {
-                    TableMainConsoleContent(
-                        onClickTableCreator: onClickTableCreator,
-                        onClickJoinTableByQr: onClickJoinTableByQr,
-                        onClickJoinTableById: onClickJoinTableById,
-                    )
-                    .padding(.horizontal, 8)
-                } else {
-                    List {
-                        ForEach(uiState.items) { uiState in
-                            TableSummaryCardRow(uiState: uiState)
-                        }
-                        .listRowSeparator(.hidden)
+                TableMainConsoleContent(
+                    onClickTableCreator: onClickTableCreator,
+                    onClickJoinTableByQr: onClickJoinTableByQr,
+                    onClickJoinTableById: onClickJoinTableById,
+                )
+                .padding(.horizontal, 8)
+
+                if uiState.tableSummaryCardRowUiState != nil {
+                    HStack {
+                        Image("person_pin")
+                            .imageScale(.large)
+                            .foregroundStyle(.primary)
+                        Text("label_joined")
+                            .font(.body)
+                        Spacer()
                     }
-                    .listStyle(.plain)
+                    .padding(.horizontal, 16)
+                    .padding(.top, 16)
+                    JoinedTableCardView(
+                        uiState: uiState.tableSummaryCardRowUiState!
+                    )
+                    .padding(.horizontal, 16)
                 }
+
             }
         }
         .navigationTitle("a")
-        .toolbar {
-            if !uiState.isEmpty {
-                Button {
-                    print("on click plus button")
-                } label: {
-                    Image(systemName: "plus")
-                }
-            }
-        }
         .frame(
             maxWidth: .infinity,
             maxHeight: .infinity,
@@ -111,77 +110,21 @@ struct MainScreen: View {
 @MainActor
 final class MainScreenUiState: ObservableObject {
     @Published var shouldShowScreenLoading: Bool
-    @Published var isEmpty: Bool
-    @Published var items: [TableSummaryCardRowUiState] = [
-        TableSummaryCardRowUiState(
+    @Published var tableSummaryCardRowUiState: JoinedTableCardViewUiState? =
+        JoinedTableCardViewUiState(
             tableId: TableId(value: "test-table-id"),
             gameTypeText: "Ring Game",
             blindText: "100/200",
             hostName: "HostPlayer",
-            isJoined: true,
             playerSize: "5/10",
             updateTime: "2024/12/08 22:54:01",
             createTime: "2024/12/08 22:54:01",
-        ),
-        TableSummaryCardRowUiState(
-            tableId: TableId(value: "test-table-id2"),
-            gameTypeText: "Ring Game",
-            blindText: "100/200",
-            hostName: "HostPlayer",
-            isJoined: false,
-            playerSize: "5/10",
-            updateTime: "2024/12/08 22:54:01",
-            createTime: "2024/12/08 22:54:01",
-        ),
-        TableSummaryCardRowUiState(
-            tableId: TableId(value: "test-table-id3"),
-            gameTypeText: "Ring Game",
-            blindText: "100/200",
-            hostName: "HostPlayer",
-            isJoined: false,
-            playerSize: "5/10",
-            updateTime: "2024/12/08 22:54:01",
-            createTime: "2024/12/08 22:54:01",
-        ),
-        TableSummaryCardRowUiState(
-            tableId: TableId(value: "test-table-id4"),
-            gameTypeText: "Ring Game",
-            blindText: "100/200",
-            hostName: "HostPlayer",
-            isJoined: false,
-            playerSize: "5/10",
-            updateTime: "2024/12/08 22:54:01",
-            createTime: "2024/12/08 22:54:01",
-        ),
-        TableSummaryCardRowUiState(
-            tableId: TableId(value: "test-table-id5"),
-            gameTypeText: "Ring Game",
-            blindText: "100/200",
-            hostName: "HostPlayer",
-            isJoined: false,
-            playerSize: "5/10",
-            updateTime: "2024/12/08 22:54:01",
-            createTime: "2024/12/08 22:54:01",
-        ),
-        TableSummaryCardRowUiState(
-            tableId: TableId(value: "test-table-id6"),
-            gameTypeText: "Ring Game",
-            blindText: "100/200",
-            hostName: "HostPlayer",
-            isJoined: false,
-            playerSize: "5/10",
-            updateTime: "2024/12/08 22:54:01",
-            createTime: "2024/12/08 22:54:01",
-        ),
-
-    ]
+        )
 
     init(
         shouldShowScreenLoading: Bool = true,
-        isEmpty: Bool = false,
     ) {
         self.shouldShowScreenLoading = shouldShowScreenLoading
-        self.isEmpty = isEmpty
     }
 }
 

@@ -7,25 +7,15 @@
 
 import SwiftUI
 
-struct TableSummaryCardRow: View {
-    @StateObject var uiState: TableSummaryCardRowUiState
+struct JoinedTableCardView: View {
+    @StateObject var uiState: JoinedTableCardViewUiState
 
-    init(uiState: TableSummaryCardRowUiState) {
+    init(uiState: JoinedTableCardViewUiState) {
         self._uiState = StateObject(wrappedValue: uiState)
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            if uiState.isJoined {
-                HStack {
-                    Image("person_pin")
-                        .imageScale(.large)
-                        .foregroundStyle(.primary)
-                    Text("label_joined")
-                        .font(.body)
-                }
-
-            }
             HStack {
                 Text(uiState.gameTypeText)
                     .font(.callout)
@@ -104,7 +94,7 @@ struct TableSummaryCardRow: View {
         // FIXME: 本当は親で定義したいが・・・うまくいかないので、ここで定義している
 //        .frame(maxWidth: .infinity)
         .background(
-            uiState.isJoined ? Color.blue.opacity(0.1) : Color.white
+            Color.blue.opacity(0.1)
         )
         .cornerRadius(16)
         .clipped()
@@ -115,13 +105,12 @@ struct TableSummaryCardRow: View {
     }
 }
 
-class TableSummaryCardRowUiState: ObservableObject, Identifiable {
+class JoinedTableCardViewUiState: ObservableObject, Identifiable {
     var id: String
     @Published var tableId: TableId
     @Published var gameTypeText: String
     @Published var blindText: String
     @Published var hostName: String
-    @Published var isJoined: Bool
     @Published var playerSize: String
     @Published var updateTime: String
     @Published var createTime: String
@@ -131,7 +120,6 @@ class TableSummaryCardRowUiState: ObservableObject, Identifiable {
         gameTypeText: String,
         blindText: String,
         hostName: String,
-        isJoined: Bool,
         playerSize: String,
         updateTime: String,
         createTime: String
@@ -141,7 +129,6 @@ class TableSummaryCardRowUiState: ObservableObject, Identifiable {
         self.gameTypeText = gameTypeText
         self.blindText = blindText
         self.hostName = hostName
-        self.isJoined = isJoined
         self.playerSize = playerSize
         self.updateTime = updateTime
         self.createTime = createTime
@@ -149,13 +136,12 @@ class TableSummaryCardRowUiState: ObservableObject, Identifiable {
 }
 
 #Preview {
-    TableSummaryCardRow(
-        uiState: TableSummaryCardRowUiState(
+    JoinedTableCardView(
+        uiState: JoinedTableCardViewUiState(
             tableId: TableId(value: "test-table-id"),
             gameTypeText: "Ring Game",
             blindText: "100/200",
             hostName: "HostPlayer",
-            isJoined: true,
             playerSize: "5/10",
             updateTime: "2024/12/08 22:54:01",
             createTime: "2024/12/08 22:54:01",
