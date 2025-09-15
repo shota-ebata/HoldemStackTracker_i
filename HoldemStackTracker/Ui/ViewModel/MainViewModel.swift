@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-@MainActor
+
 final class MainViewModel {
     private let myReposiyory: MyRepositoryProtocol
     
@@ -49,7 +49,7 @@ final class MainViewModel {
     }
     
     func onClickTableCreator() {
-        
+        print("onClickTableCreator")
     }
     
     func onClickJoinTableByQr() {
@@ -78,7 +78,7 @@ final class MainViewModel {
     }
 }
 
-@MainActor
+
 class MainContentDialogUiState : ObservableObject {
     @Published var joinByIdSheetUiState: JoinByIdContentUiState? = nil
 }
