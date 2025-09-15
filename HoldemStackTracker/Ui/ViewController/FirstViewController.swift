@@ -34,7 +34,8 @@ class FirstViewController: UIViewController {
 //        navigationController?.pushViewController(nextVC, animated: true)
 //        let mainContentView = MainContentView()
 //        let vc = UIHostingController(rootView: mainContentView)
-        let vc = MainViewController()
+//        let vc = MainViewController()
+        let vc = MainUIKitViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
 }
