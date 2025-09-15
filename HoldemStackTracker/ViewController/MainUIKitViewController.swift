@@ -227,54 +227,19 @@ class MainUIKitViewController: UIViewController {
     // MARK: - Dialog Presentation
 
     private func presentJoinByIdSheet(with uiState: JoinByIdContentUiState) {
-        let sheetVC = UIViewController()  // Placeholder for your JoinByIdContent UIKit view controller
-        sheetVC.view.backgroundColor = .systemBackground
+        let sheetVC = JoinByIdBottomSheetViewController()
 
-        let vStack = UIStackView()
-        vStack.axis = .vertical
-        vStack.spacing = 16
-        vStack.translatesAutoresizingMaskIntoConstraints = false
+        sheetVC.onDone = { [weak self] id in
+            guard let self = self else { return }
+            print("sheetVC.enteredId : \(sheetVC.enteredId ?? "nil")")
+            print("id: \(id ?? "nil")")
+            self.viewModel.onClickJoinByIdDialogDone()
+        }
 
-        let doneButton = UIButton(type: .system)
-        doneButton.setTitle("Done", for: .normal)
-        doneButton.addTarget(
-            self,
-            action: #selector(handleJoinByIdDialogDone),
-            for: .touchUpInside
-        )
-
-        let cancelButton = UIButton(type: .system)
-        cancelButton.setTitle("Cancel", for: .normal)
-        cancelButton.addTarget(
-            self,
-            action: #selector(handleJoinByIdDialogCancel),
-            for: .touchUpInside
-        )
-
-        let textField = UITextField()
-        textField.placeholder = "Enter ID"
-        textField.borderStyle = .roundedRect
-
-        vStack.addArrangedSubview(textField)
-        vStack.addArrangedSubview(doneButton)
-        vStack.addArrangedSubview(cancelButton)
-
-        sheetVC.view.addSubview(vStack)
-
-        NSLayoutConstraint.activate([
-            vStack.topAnchor.constraint(
-                equalTo: sheetVC.view.topAnchor,
-                constant: 16
-            ),
-            vStack.leadingAnchor.constraint(
-                equalTo: sheetVC.view.leadingAnchor,
-                constant: 16
-            ),
-            vStack.trailingAnchor.constraint(
-                equalTo: sheetVC.view.trailingAnchor,
-                constant: -16
-            ),
-        ])
+        sheetVC.onCancel = { [weak self] in
+            guard let self = self else { return }
+            self.viewModel.onDissmissRequestJoinByIdDialog()
+        }
 
         if let sheet = sheetVC.sheetPresentationController {
             sheet.detents = [.custom(resolver: { _ in 150 })]
@@ -283,13 +248,5 @@ class MainUIKitViewController: UIViewController {
         }
 
         present(sheetVC, animated: true)
-    }
-
-    @objc private func handleJoinByIdDialogDone() {
-        viewModel.onClickJoinByIdDialogDone()
-    }
-
-    @objc private func handleJoinByIdDialogCancel() {
-        viewModel.onDissmissRequestJoinByIdDialog()
     }
 }

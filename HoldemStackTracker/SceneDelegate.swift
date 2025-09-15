@@ -19,13 +19,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // オプションで UIWindow `window` を設定し、提供された UIWindowScene `scene` にアタッチするには、このメソッドを使用します。
         // ストーリーボードを使用している場合、 `window` プロパティは自動的に初期化され、シーンにアタッチされます。
         // このデリゲートは接続するシーンやセッションが新しいことを意味しません（代わりに `application:configurationForConnectingSceneSession` を参照してください）。
-        
+
         guard let windowScene = (scene as? UIWindowScene) else {
             return
         }
-        
+
         let window = UIWindow(windowScene: windowScene)
-        
+
 //        let vc = FirstViewController()
 //        let vc = MainViewController()
         let vc = MainUIKitViewController()
