@@ -158,7 +158,7 @@ class MainUIKitViewController: UIViewController {
     }
 
     private func setupUI() {
-        title = "a"
+        title = "Main(UIKit)"
         view.backgroundColor = .systemBackground
 
         view.addSubview(mainStackView)

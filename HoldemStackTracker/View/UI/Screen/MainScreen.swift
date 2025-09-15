@@ -82,7 +82,7 @@ struct MainScreen: View {
 
             }
         }
-        .navigationTitle("a")
+        .navigationTitle("Main(SwiftUI)")
         .frame(
             maxWidth: .infinity,
             maxHeight: .infinity,

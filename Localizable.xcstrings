@@ -1,9 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "a" : {
-
-    },
     "blind" : {
       "extractionState" : "manual"
     },
@@ -210,6 +207,9 @@
           }
         }
       }
+    },
+    "Main(SwiftUI)" : {
+
     }
   },
   "version" : "1.0"
