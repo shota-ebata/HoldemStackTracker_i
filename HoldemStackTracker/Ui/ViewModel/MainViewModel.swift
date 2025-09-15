@@ -53,7 +53,7 @@ final class MainViewModel {
     }
     
     func onClickJoinTableByQr() {
-        
+        print("onClickJoinTableByQr")
     }
     
     func onClickJoinTableById() {

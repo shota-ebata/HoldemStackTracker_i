@@ -36,49 +36,13 @@ class MainUIKitViewController: UIViewController {
     // Console buttons container
     private lazy var tableMainConsoleContent: UIView = {
         let view = UIView()
-        // Create Table Button
-        let tableCreatorButton = ElevatedCardWithIconAndNameUIView(
-            imageResKey: "home",
-            labelTextKey: "label_create_table",
-            onClick: { [weak self] in
-                self?.viewModel.onClickTableCreator()
-            }
-        )
-        tableCreatorButton.translatesAutoresizingMaskIntoConstraints = false
-
-        // Join by QR Button
-        let qrButton = ElevatedCardWithIconAndNameUIView(
-            imageResKey: "qr_code_scanner",
-            labelTextKey: "button_qr_scanner",
-            onClick: { [weak self] in
-                self?.viewModel.onClickJoinTableByQr()
-            }
-        )
-
-        // Join by ID Button
-        let idButton = ElevatedCardWithIconAndNameUIView(
-            imageResKey: "edit",
-            labelTextKey: "button_table_id_search",
-            onClick: { [weak self] in
-                print("onClick idButton")
-                self?.viewModel.onClickJoinTableById()
-            }
-        )
-
-        // 下部の2つのボタンを横並び
-        let subButtonStack = UIStackView(arrangedSubviews: [qrButton, idButton])
-        subButtonStack.axis = .horizontal
-        subButtonStack.distribution = .fillEqually
-        subButtonStack.spacing = 8
-        subButtonStack.translatesAutoresizingMaskIntoConstraints = false
-
         // 全体を縦並び
         let verticalStack = UIStackView(
             arrangedSubviews: [
                 newTableTitle,
                 tableCreatorButton,
                 joinTableTitle,
-                subButtonStack,
+                joinButtonsStackView,
             ]
         )
         verticalStack.axis = .vertical
@@ -110,112 +74,68 @@ class MainUIKitViewController: UIViewController {
         return view
     }()
 
-    private lazy var newTableTitle: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-
+    // 「新規作成」タイトル
+    private lazy var newTableTitle: UILabel = {
         let label = UILabel()
         label.text = NSLocalizedString("button_create_table", comment: "")
         label.font = .preferredFont(forTextStyle: .title1)
         label.translatesAutoresizingMaskIntoConstraints = false
-
-        view.addSubview(label)
-        NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: view.topAnchor),
-            label.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            label.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            label.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-        ])
-        return view
+        return label
     }()
 
-    private lazy var joinTableTitle: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
+    // 「新規作成」ボタンStackView
+    private lazy var tableCreatorButton: ElevatedCardWithIconAndNameUIView = {
+        let tableCreatorButton = ElevatedCardWithIconAndNameUIView(
+            imageResKey: "home",
+            labelTextKey: "label_create_table",
+            onClick: { [weak self] in
+                self?.viewModel.onClickTableCreator()
+            }
+        )
+        tableCreatorButton.translatesAutoresizingMaskIntoConstraints = false
+        return tableCreatorButton
+    }()
 
+    // 「テーブルに参加」タイトル
+    private lazy var joinTableTitle: UILabel = {
         let label = UILabel()
         label.text = NSLocalizedString("label_join_table", comment: "")
         label.font = .preferredFont(forTextStyle: .title1)
         label.translatesAutoresizingMaskIntoConstraints = false
-
-        view.addSubview(label)
-        NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: view.topAnchor),
-            label.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            label.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            label.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-        ])
-
-        return view
+        return label
     }()
 
-    // Joined table card container
-    private lazy var joinedTableCardContainer: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-
-        let headerStack = UIStackView()
-        headerStack.axis = .horizontal
-        headerStack.spacing = 8
-        headerStack.translatesAutoresizingMaskIntoConstraints = false
-
-        let headerIcon = UIImageView(
-            image: UIImage(systemName: "person.pin.fill")
+    // 「テーブルに参加」ボタンStackView
+    private lazy var joinButtonsStackView: UIStackView = {
+        // Join by QR Button
+        let qrButton = ElevatedCardWithIconAndNameUIView(
+            imageResKey: "qr_code_scanner",
+            labelTextKey: "button_qr_scanner",
+            onClick: { [weak self] in
+                self?.viewModel.onClickJoinTableByQr()
+            }
         )
-        headerIcon.tintColor = .label
 
-        let headerLabel = UILabel()
-        headerLabel.text = NSLocalizedString("label_join_table", comment: "")
-        headerLabel.font = .preferredFont(forTextStyle: .body)
-
-        headerStack.addArrangedSubview(headerIcon)
-        headerStack.addArrangedSubview(headerLabel)
-        headerStack.addArrangedSubview(UIView())  // Spacer
-
-        let cardView = UIView()  // This would be JoinedTableCardView
-        cardView.backgroundColor = .systemGray6
-        cardView.layer.cornerRadius = 8
-        cardView.translatesAutoresizingMaskIntoConstraints = false
-
-        let cardTapGesture = UITapGestureRecognizer(
-            target: self,
-            action: #selector(handleJoinedCardTapped)
+        // Join by ID Button
+        let idButton = ElevatedCardWithIconAndNameUIView(
+            imageResKey: "edit",
+            labelTextKey: "button_table_id_search",
+            onClick: { [weak self] in
+                print("onClick idButton")
+                self?.viewModel.onClickJoinTableById()
+            }
         )
-        cardView.addGestureRecognizer(cardTapGesture)
 
-        view.addSubview(headerStack)
-        view.addSubview(cardView)
-
-        NSLayoutConstraint.activate([
-            headerStack.topAnchor.constraint(
-                equalTo: view.topAnchor,
-                constant: 16
-            ),
-            headerStack.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor,
-                constant: 16
-            ),
-            headerStack.trailingAnchor.constraint(
-                equalTo: view.trailingAnchor,
-                constant: -16
-            ),
-
-            cardView.topAnchor.constraint(
-                equalTo: headerStack.bottomAnchor,
-                constant: 16
-            ),
-            cardView.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor,
-                constant: 16
-            ),
-            cardView.trailingAnchor.constraint(
-                equalTo: view.trailingAnchor,
-                constant: -16
-            ),
-            cardView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        // 下部の2つのボタンを横並び
+        let joinButtonsStackView = UIStackView(arrangedSubviews: [
+            qrButton, idButton,
         ])
+        joinButtonsStackView.axis = .horizontal
+        joinButtonsStackView.distribution = .fillEqually
+        joinButtonsStackView.spacing = 8
+        joinButtonsStackView.translatesAutoresizingMaskIntoConstraints = false
 
-        return view
+        return joinButtonsStackView
     }()
 
     // MARK: - Initialization
@@ -302,24 +222,6 @@ class MainUIKitViewController: UIViewController {
                 }
             }
             .store(in: &cancellables)
-    }
-
-    // MARK: - Actions
-
-    @objc private func handleTableCreatorTapped() {
-        viewModel.onClickTableCreator()
-    }
-
-    @objc private func handleJoinTableByQrTapped() {
-        viewModel.onClickJoinTableByQr()
-    }
-
-    @objc private func handleJoinTableByIdTapped() {
-        viewModel.onClickJoinTableById()
-    }
-
-    @objc private func handleJoinedCardTapped() {
-        viewModel.onClickJoinedCard()
     }
 
     // MARK: - Dialog Presentation
